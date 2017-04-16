@@ -83,7 +83,6 @@ function telephoneCheck(str) {
 //------------------------------------------------------------------------------
 //Record Collection
 
-
 // Setup
 var collection = {
   "2548": {
@@ -132,3 +131,6 @@ function updateRecords(id, prop, value) {
 // Alter values below to test your code
 //updateRecords(5439, "artist", "ABBA");
 //updateRecords(2468, "tracks", "Free");
+
+//------------------------------------------------------------------------------
+//Symmetric Difference
