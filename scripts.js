@@ -78,5 +78,7 @@ function telephoneCheck(str) {
   return true;
 }
 
+//telephoneCheck("1 555 555 5555");
 
-telephoneCheck("1 555 555 5555");
+//------------------------------------------------------------------------------
+//Record Collection
