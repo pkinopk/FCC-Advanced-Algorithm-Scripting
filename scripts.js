@@ -134,3 +134,61 @@ function updateRecords(id, prop, value) {
 
 //------------------------------------------------------------------------------
 //Symmetric Difference
+
+function sym() {
+  var arr = [];
+  var args = Array.prototype.slice.call(arguments);
+  recursiveCheck(args);
+
+  //Check if a num is inside an array
+  function isInArray(n, arrSearch) {
+    for (var i = 0; i < arrSearch.length; i++) {
+      if (n === arrSearch[i]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  //Build the symmetric difference array
+  function recursiveCheck(args) {
+    arr = [];
+    if (args.length > 2) {
+      for (var i = 0; i < args[0].length; i++) {
+        if (!isInArray(args[0][i], args[1])) {
+          if (!isInArray(args[0][i], arr)) {
+            arr.push(args[0][i]);
+          }
+        }
+      }
+      for (i = 0; i < args[1].length; i++) {
+        if (!isInArray(args[1][i], args[0])) {
+          if (!isInArray(args[1][i], arr)) {
+            arr.push(args[1][i]);
+          }
+        }
+      }
+      args.splice(0, 2);
+      args.unshift(arr);
+      return recursiveCheck(args);
+    } else {
+      for (var i = 0; i < args[0].length; i++) {
+        if (!isInArray(args[0][i], args[1])) {
+          if (!isInArray(args[0][i], arr)) {
+            arr.push(args[0][i]);
+          }
+        }
+      }
+      for (i = 0; i < args[1].length; i++) {
+        if (!isInArray(args[1][i], args[0])) {
+          if (!isInArray(args[1][i], arr)) {
+            arr.push(args[1][i]);
+          }
+        }
+      }
+    }
+  }
+  return arr;
+}
+
+//sym([1, 2, 3], [5, 2, 1, 4]);
