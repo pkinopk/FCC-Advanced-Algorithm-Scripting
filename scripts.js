@@ -1,36 +1,37 @@
 //Advanced Algorithm Scripting
-//
 //------------------------------------------------------------------------------
 //Validate US Telephone Numbers
 
 function telephoneCheck(str) {
   var arr = [];
   var count = 0;
+
   //Check for non opening/closing parenteses
   for (var i = 0; i < str.length; i++) {
-    if (str[i] == "(" || str[i] == ")") {
+    if (str[i] == '(' || str[i] == ')') {
       count++;
     }
   }
+
   if (count === 1) {
     return false;
   }
 
   //Check for everything insede parenteses
-  if (str[0] == "(" && str[str.length - 1] == ")") {
+  if (str[0] == '(' && str[str.length - 1] == ')') {
     return false;
   }
 
   //Check for number starting with -
-  if (str[0] == "-") {
+  if (str[0] == '-') {
     return false;
   }
 
   //Remove unnecessary characters
-  str = str.replace(/\-/g, "");
-  str = str.replace(/\(/g, "");
-  str = str.replace(/\)/g, "");
-  str = str.replace(/ /g, "");
+  str = str.replace(/\-/g, '');
+  str = str.replace(/\(/g, '');
+  str = str.replace(/\)/g, '');
+  str = str.replace(/ /g, '');
 
   var size = str.length;
 
@@ -45,7 +46,7 @@ function telephoneCheck(str) {
     arr.push(str.substring(size - 4, size));
 
     //Convert the strings in the array to integers
-    for (var i = 0; i < arr.length; i++) {
+    for (i = 0; i < arr.length; i++) {
       arr[i] = parseInt(arr[i], 10);
     }
 
@@ -55,11 +56,13 @@ function telephoneCheck(str) {
     if (size > 11) {
       return false;
     }
+
     if (size === 11) {
       if (arr[0] != 1) {
         return false;
       }
-      for (var i = 1; i < arr.length; i++) {
+
+      for (i = 1; i < arr.length; i++) {
         if (typeof arr[i] != 'number') {
           return false;
         }
@@ -68,60 +71,63 @@ function telephoneCheck(str) {
       if (!isNaN(arr[0])) {
         return false;
       }
-      for (var i = 1; i < arr.length; i++) {
+
+      for (i = 1; i < arr.length; i++) {
         if (typeof arr[i] != 'number') {
           return false;
         }
       }
     }
   }
+
   return true;
 }
 
-//telephoneCheck("1 555 555 5555");
+//telephoneCheck('1 555 555 5555');
 
 //------------------------------------------------------------------------------
 //Record Collection
 
 // Setup
 var collection = {
-  "2548": {
-    "album": "Slippery When Wet",
-    "artist": "Bon Jovi",
-    "tracks": [
-      "Let It Rock",
-      "You Give Love a Bad Name"
-    ]
+  2548: {
+    album: 'Slippery When Wet',
+    artist: 'Bon Jovi',
+    tracks: [
+      'Let It Rock',
+      'You Give Love a Bad Name',
+    ],
   },
-  "2468": {
-    "album": "1999",
-    "artist": "Prince",
-    "tracks": [
-      "1999",
-      "Little Red Corvette"
-    ]
+  2468: {
+    album: '1999',
+    artist: 'Prince',
+    tracks: [
+      '1999',
+      'Little Red Corvette',
+    ],
   },
-  "1245": {
-    "artist": "Robert Palmer",
-    "tracks": []
+  1245: {
+    artist: 'Robert Palmer',
+    tracks: [],
   },
-  "5439": {
-    "album": "ABBA Gold"
-  }
+  5439: {
+    album: 'ABBA Gold',
+  },
 };
+
 // Keep a copy of the collection for tests
 var collectionCopy = JSON.parse(JSON.stringify(collection));
 
 // Only change code below this line
 function updateRecords(id, prop, value) {
-  if (prop !== "tracks" && value !== "") {
+  if (prop !== 'tracks' && value !== '') {
     collection[id][prop] = value;
-  } else if (prop === "tracks" && !collection[id].hasOwnProperty("tracks")) {
+  } else if (prop === 'tracks' && !collection[id].hasOwnProperty('tracks')) {
     collection[id][prop] = [];
     collection[id][prop].push(value);
-  } else if (prop === "tracks" && value !== "") {
+  } else if (prop === 'tracks' && value !== '') {
     collection[id][prop].push(value);
-  } else if (value === "") {
+  } else if (value === '') {
     delete collection[id][prop];
   }
 
@@ -129,8 +135,8 @@ function updateRecords(id, prop, value) {
 }
 
 // Alter values below to test your code
-//updateRecords(5439, "artist", "ABBA");
-//updateRecords(2468, "tracks", "Free");
+//updateRecords(5439, 'artist', 'ABBA');
+//updateRecords(2468, 'tracks', 'Free');
 
 //------------------------------------------------------------------------------
 //Symmetric Difference
@@ -147,20 +153,23 @@ function sym() {
         return true;
       }
     }
+
     return false;
   }
 
-  //Build the symmetric difference array
+  //Build the symmetric difference array using recursion
   function recursiveCheck(args) {
+    var i = 0;
     arr = [];
     if (args.length > 2) {
-      for (var i = 0; i < args[0].length; i++) {
+      for (i = 0; i < args[0].length; i++) {
         if (!isInArray(args[0][i], args[1])) {
           if (!isInArray(args[0][i], arr)) {
             arr.push(args[0][i]);
           }
         }
       }
+
       for (i = 0; i < args[1].length; i++) {
         if (!isInArray(args[1][i], args[0])) {
           if (!isInArray(args[1][i], arr)) {
@@ -168,17 +177,19 @@ function sym() {
           }
         }
       }
+
       args.splice(0, 2);
       args.unshift(arr);
       return recursiveCheck(args);
     } else {
-      for (var i = 0; i < args[0].length; i++) {
+      for (i = 0; i < args[0].length; i++) {
         if (!isInArray(args[0][i], args[1])) {
           if (!isInArray(args[0][i], arr)) {
             arr.push(args[0][i]);
           }
         }
       }
+
       for (i = 0; i < args[1].length; i++) {
         if (!isInArray(args[1][i], args[0])) {
           if (!isInArray(args[1][i], arr)) {
@@ -188,7 +199,43 @@ function sym() {
       }
     }
   }
+
   return arr;
 }
 
 //sym([1, 2, 3], [5, 2, 1, 4]);
+
+//------------------------------------------------------------------------------
+//Exact Change
+
+function checkCashRegister(price, cash, cid) {
+  var change = cash - price;
+  if (change < 5) {
+    getPennys();
+  }
+
+  return change;
+}
+
+// Example cash-in-drawer array:
+// [['PENNY', 1.01],
+// ['NICKEL', 2.05],
+// ['DIME', 3.10],
+// ['QUARTER', 4.25],
+// ['ONE', 90.00],
+// ['FIVE', 55.00],
+// ['TEN', 20.00],
+// ['TWENTY', 60.00],
+// ['ONE HUNDRED', 100.00]]
+
+checkCashRegister(19.50, 20.00, [
+  ['PENNY', 1.01],
+  ['NICKEL', 2.05],
+  ['DIME', 3.10],
+  ['QUARTER', 4.25],
+  ['ONE', 90.00],
+  ['FIVE', 55.00],
+  ['TEN', 20.00],
+  ['TWENTY', 60.00],
+  ['ONE HUNDRED', 100.00],
+]);
